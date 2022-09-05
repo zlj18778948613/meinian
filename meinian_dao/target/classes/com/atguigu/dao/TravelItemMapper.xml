@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.atguigu.dao.TravelItemMapper">
+
+
+
+    <select id="findAll" resultType="com.atguigu.pojo.TravelItem">
+           select id,code,name,remark
+           from t_travelitem
+    </select>
+
+  <insert id="save" >
+      insert into t_travelitem values(null,#{code},#{name},#{sex},#{age},#{price},#{type},#{attention},#{remark})
+  </insert>
+
+    <select id="getTravelItemList" resultType="com.atguigu.pojo.TravelItem">
+            select id,code,name,sex,age,remark
+            from t_travelitem
+            <if test="queryString !='' and queryString != null">
+              where  code = #{queryString} or name like concat('%',#{queryString},'%')
+            </if>
+    </select>
+
+    <delete id="deleteById">
+        delete from t_travelitem where id = #{id}
+    </delete>
+    <select id="findById" resultType="com.atguigu.pojo.TravelItem">
+         select *
+         from t_travelitem
+         where id = #{id}
+    </select>
+
+    <update id="edit">
+        update t_travelitem
+        set code = #{code},name=#{name},sex=#{sex},age=#{age},price=#{price},type=#{type},attention=#{attention},remark=#{remark}
+        where id = #{id}
+    </update>
+</mapper>
